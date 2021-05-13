@@ -1,12 +1,16 @@
-//Functions for Michael
+//Functions (excluding stack functions as well as RP n t) for Michael
 #include <iostream>
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-
+#define MAX_SIZE 100
 #include"stack.h"
 //marks current position as 'p' for pheremone
 //make sure to follow all moves by mark
+//int currX;//current x position
+//int currY;//current y position
+//??maybe put this in main or make another stack for it or get rid of completely;
+//char[MAX_SIZE][];//use this to store commands made for back track method
 void MARK(int row,int col,char *maze[]){
 	maze[row][col]='p';
 	
@@ -178,6 +182,14 @@ return 0;
 }//if
 return 1;//if func gets to here it means Jump was executed
 }//CJPI
+//BACKTRACK METHOD ??nO iDea if this is correct
+void BACKTRACK(int x,int y){
+	pop(&x,&y);
+	//??Since we are using the top of the stack as current position pop would
+	//??bring michael back to the last position but idk if this is correct
+	//??if we need a separate variable to hold the current position
+	//??then this needs a major rework
+}//BACKTRACK
 
 
 
