@@ -1,4 +1,5 @@
 //Functions (excluding stack functions as well as RP n t) for Michael
+//HI Adam
 #include <iostream>
 #include<stdio.h>
 #include<stdlib.h>
