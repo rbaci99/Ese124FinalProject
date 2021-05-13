@@ -117,7 +117,7 @@ switch(c){
 		break;
 	case 'R':
 		num=CWR(maze);
-		if(num==0) return 0;
+		if(num==0) return 0;//hi rob 
 		push(x,y+num);
 		break;
 	case 'F':
