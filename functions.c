@@ -1,5 +1,5 @@
 //Functions (excluding stack functions as well as RP n t) for Michael
-//HI Adam
+
 #include <iostream>
 #include<stdio.h>
 #include<stdlib.h>
@@ -8,8 +8,8 @@
 #include"stack.h"
 //marks current position as 'p' for pheremone
 //make sure to follow all moves by mark
-//int currX;//current x position
-//int currY;//current y position
+int currX;//current x position
+int currY;//current y position
 //??maybe put this in main or make another stack for it or get rid of completely;
 //char[MAX_SIZE][];//use this to store commands made for back track method
 void MARK(int row,int col,char *maze[]){
