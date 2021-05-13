@@ -33,7 +33,7 @@ void MOVE_B(){
 }//MOVE_B
 
 //moves ant left by 1 in y direction
-void MOVE_L(){
+void MOVE_L(){   // hi rob
 	int x,y;
 	peek(&x,&y);
 	push(x,y-1);
