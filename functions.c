@@ -27,7 +27,7 @@ void MOVE_F(){
 
 //moves ant backwards by 1 in x direction
 void MOVE_B(){
-	int x,y;
+	int x,y; //hello there
 	peek(&x,&y);
 	push(x-1,y);
 }//MOVE_B
