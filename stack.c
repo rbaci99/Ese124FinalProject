@@ -35,7 +35,7 @@ void clear () {
 //parameters are where you liked to store value in main must be in form of (&xValue,&yValue);
 //?? could also do this by making two separate methods or using integer div
 //??i.e multplying x by 10 and adding it to y and return that value to decode into x and y
-void peak(int *xValue, int *yValue){
+void peek(int *xValue, int *yValue){
 	if(empty() !=1){
 	*xValue = stackX[top-1];
 	*yValue = stackY[top-1];
