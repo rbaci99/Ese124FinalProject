@@ -27,13 +27,13 @@ void MOVE_F(){
 
 //moves ant backwards by 1 in x direction
 void MOVE_B(){
-	int x,y;
+	int x,y; //hello there
 	peek(&x,&y);
 	push(x-1,y);
 }//MOVE_B
 
 //moves ant left by 1 in y direction
-void MOVE_L(){
+void MOVE_L(){   // hi rob
 	int x,y;
 	peek(&x,&y);
 	push(x,y-1);
@@ -117,7 +117,7 @@ switch(c){
 		break;
 	case 'R':
 		num=CWR(maze);
-		if(num==0) return 0;
+		if(num==0) return 0;//hi rob 
 		push(x,y+num);
 		break;
 	case 'F':
