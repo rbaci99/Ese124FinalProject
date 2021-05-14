@@ -1,13 +1,4 @@
 //Functions (excluding stack functions as well as RP n t) for Michael
-//this is mel
-//hi melvin its Rob
-//what is going on
-
-
-
-
-//GITHUB is confusing
-//YES IT IS
 
 #include <iostream>
 #include<stdio.h>
