@@ -1,6 +1,5 @@
 //Functions (excluding stack functions as well as RP n t) for Michael
 //this is mel
-//hi melvin its Rob
 #include <iostream>
 #include<stdio.h>
 #include<stdlib.h>
