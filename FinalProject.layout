@@ -12,13 +12,16 @@ LeftChar=1
 Order=0,1,2
 Focused=2
 [Editor_1]
-<<<<<<< HEAD
+
 CursorCol=7
 CursorRow=11
-=======
+
+CursorCol=22
+CursorRow=5
+
+
 CursorCol=14
 CursorRow=2
->>>>>>> 119da022babd8e07bf460669b2c3c3ba2f6a0c86
 TopLine=139
 LeftChar=1
 [Editor_2]

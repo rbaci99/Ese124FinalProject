@@ -4,6 +4,10 @@
 //what is going on
 
 
+
+
+//GITHUB is confusing
+
 #include <iostream>
 #include<stdio.h>
 #include<stdlib.h>
