@@ -10,52 +10,74 @@
 //make sure to follow all moves by mark
 int currX;//current x position
 int currY;//current y position
-//??maybe put this in main or make another stack for it or get rid of completely;
-//char[MAX_SIZE][];//use this to store commands made for back track method
+
+void getPos(int *xValue, int *yValue){
+	*xValue=currX;
+	*yValue=currY;
+	
+}//getPos
+
+
 void MARK(int row,int col,char *maze[]){
 	maze[row][col]='p';
 	push(row,col);
 	
 }//MARK
 
-//moves ant foward by 1 in x direction
-void MOVE_F(){
- //add check in main file to see if maze is *   ??should we put check in here instead
- //add in main so that way we can print to file if invalid spot
+//moves ant foward by 1 in x direction x+1
+int MOVE_F(char *maze[]){
+ if(maze[currX++][currY]=='p'||maze[currX++][currY]==' '||maze[currX++][currY]=='@'){
 	currX++;
-	//peek(&x,&y); used for when we had top of stack = current position
-	//push(x+1,y)
+ if (maze[currX][currY]=='@')
+	return 2;//Gold found
+	return 1;//No Gold but valid space
+}else
+	return 0;//No valid space aka wall
+//if check for valid space
 }//MOVE_F
 
-//moves ant backwards by 1 in x direction
-void MOVE_B(){
-//	int x,y;
- currX--;
-	//peek(&x,&y);
-//	push(x-1,y);
+//moves ant backwards by 1 in x direction x-1
+int MOVE_B(char *maze[]){
+ if(maze[currX--][currY]=='p'||maze[currX--][currY]==' '||maze[currX--][currY]=='@'){
+	currX--;
+ if (maze[currX][currY]=='@')
+	return 2;//Gold found
+	return 1;//No Gold but valid space
+}else
+	return 0;//No valid space aka wall
+//if check for valid space
+
 }//MOVE_B
 
-//moves ant left by 1 in y direction
-void MOVE_L(){
-/*	int x,y;
-	peek(&x,&y);
-	push(x,y-1);
-	*/
+//moves ant left by 1 in y direction y-1
+int MOVE_L(char *maze[]){
+
+	 if(maze[currX][currY--]=='p'||maze[currX][currY--]==' '||maze[currX][currY--]=='@'){
 	currY--;
+ if (maze[currX][currY]=='@')
+	return 2;//Gold found
+	return 1;//No Gold but valid space
+}else
+	return 0;//No valid space aka wall
+//if check for valid space
 }//MOVE_L
 
-//moves ant right by 1 in y direction
-void MOVE_R(){
-/*	int x,y;
-	peek(&x,&y);
-	push(x,y+1);
-	*/
-	currY++;
+//moves ant right by 1 in y direction y+1
+int MOVE_R(char *maze[]){
+
+	 if(maze[currX][currY++]=='p'||maze[currX][currY++]==' '||maze[currX][currY++]=='@'){
+	currX++;
+ if (maze[currX][currY]=='@')
+	return 2;//Gold found
+	return 1;//No Gold but valid space
+}else
+	return 0;//No valid space aka wall
+//if check for valid space
 }//MOVE_R
 //checks for itch to left and returns number of free spaces although Michael does not see it,used for jumps
 int CWL(char *maze[]){
 	int x,y,i=0,itch=0;
-//	peek(&x,&y);
+
 	x=currX;
 	y=currY;
 	while(maze[x][y-i]==' '){
@@ -64,8 +86,7 @@ int CWL(char *maze[]){
 	}
 	return itch;//returns number of spaces free micheal cant see this but use for Jumps
 	//returns 0 for no itch else returns # of itches
-	//??may change to just boolean and use while loop in BJMP
-	//look at lecture from tuesday week13 time 55 min for reference of difference bewteen jumps
+
 }//CWL
 //checks for itch to Right and returns number of free spaces
 int CWR(char *maze[]){
@@ -79,8 +100,7 @@ int CWR(char *maze[]){
 	}
 	return itch;//returns number of spaces free micheal cant see this but use for Jumps
 	//returns 0 for no itch else returns # of itches
-	//??may change to just boolean and use while loop in BJMP
-	//look at lecture from tuesday week13 time 55 min for reference of difference bewteen jumps
+	
 }//CWR
 //checks for itch to Forward direaction and returns number of free spaces
 int CWF(char *maze[]){
@@ -94,8 +114,7 @@ int CWF(char *maze[]){
 	}
 	return itch;//returns number of spaces free micheal cant see this but use for Jumps
 	//returns 0 for no itch else returns # of itches
-	//??may change to just boolean and use while loop in BJMP
-	//look at lecture from tuesday week13 time 55 min for reference of difference bewteen jumps
+	
 }//CWF
 //checks for itch to Backwards direaction and returns number of free spaces
 int CWB(char *maze[]){
@@ -109,8 +128,7 @@ int CWB(char *maze[]){
 	}
 	return itch;//returns number of spaces free micheal cant see this but use for Jumps
 	//returns 0 for no itch else returns # of itches
-	//??may change to just boolean and use while loop in BJMP
-	//look at lecture from tuesday week13 time 55 min for reference of difference bewteen jumps
+	
 }//CWB
 //Jumps to furthest itch in specified direction
 //returns 1 if jump executed else returns 0
@@ -210,19 +228,11 @@ return 0;
 return 1;//if func gets to here it means Jump was executed
 }//CJPI
 //BACKTRACK METHOD ??nO iDea if this is correct
-void BACKTRACK(int x,int y,char* actions){
+void BACKTRACK(){
+	int x,y;
 	pop(&x,&y);
-	//Could do by re-reading the actions
-	//then doing opposite
-	//will be a little bit though
-	//might be making back to original way
-	// | | | | | |
-	// v v v v v v
-	//Now uses curr position and actions which array of actions from
-	//??Since we are using the top of the stack as current position pop would
-	//??bring michael back to the last position but idk if this is correct
-	//??if we need a separate variable to hold the current position
-	//??then this needs a major rework
+	currX=x;
+	currY=y;
 }//BACKTRACK
 
 
