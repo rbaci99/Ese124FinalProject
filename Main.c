@@ -59,11 +59,32 @@ char act[MAX_SIZE][10];//To store List of actions from Intelligence file
 int max_energy=100;//Max energy of Michael
 
 int transition[5][18]= {
+	//Have check for CW if check failed 3x then back
+	//void nextState(current_stat,char map,curr position) ot just curr position
+	//								^
+	//								input
+	//flags are global variables
+	// if(current_state ==cwl){
+	//	if(map(x+1)(y)==*)
+	//	flag=0      <--can use return of functions
+	//next state = cwF;
+	//	else if ' '
+	//	flag =1
+	//if all flags dont =1 then go back
+	//void output(curr,flags){
+	//if all flags are 0 then go back
+	//while(1)
+	//FSM{
+	//read one line of command
+	//convert text to current stat
+	//current_state = Next_State(current_st,pos)
+	//for move functions
+	//if valid update else check next direction
 	//Mark cwL cwF cwR cwB Move_F Move_B Move_L Move_R Push Pop Peek Clear BJPI CJPI Back Rp EOS
 	idle, cwL, cwF, cwR, cwB, Move_F, Move_B, Move_L, Move_R, Push, Pop, Peek, Clear, BJPI, CJPI, Back, Rp, End,    //idle
-	idle, cwL, cwF, cwR, cwB, Move_F, Move_B, Move_L, Move_R, Push, Pop, Peek, Clear, BJPI, CJPI, Back, Rp, End,    //cwL
-	idle, cwL, cwF, cwR, cwB, Move_F, Move_B, Move_L, Move_R, Push, Pop, Peek, Clear, BJPI, CJPI, Back, Rp, End,    //cwR
-	idle, cwL, cwF, cwR, cwB, Move_F, Move_B, Move_L, Move_R, Push, Pop, Peek, Clear, BJPI, CJPI, Back, Rp, End,    //cwB
+	idle, cwL, cwF, cwR, cwB, Move_F, Move_B, Move_L, Move_R, Push, Pop, Peek, Clear, BJPI, CJPI, Back, Rp, End,    //cwL failed
+	idle, cwL, cwF, cwR, cwB, Move_F, Move_B, Move_L, Move_R, Push, Pop, Peek, Clear, BJPI, CJPI, Back, Rp, End,    //cwR failed
+	idle, cwL, cwF, cwR, cwB, Move_F, Move_B, Move_L, Move_R, Push, Pop, Peek, Clear, BJPI, CJPI, Back, Rp, End,    //cwB failed
 	idle, cwL, cwF, cwR, cwB, Move_F, Move_B, Move_L, Move_R, Push, Pop, Peek, Clear, BJPI, CJPI, Back, Rp, End,    //Move_F
 	idle, cwL, cwF, cwR, cwB, Move_F, Move_B, Move_L, Move_R, Push, Pop, Peek, Clear, BJPI, CJPI, Back, Rp, End,    //Move_B
 	idle, cwL, cwF, cwR, cwB, Move_F, Move_B, Move_L, Move_R, Push, Pop, Peek, Clear, BJPI, CJPI, Back, Rp, End,    //Move_L
@@ -79,6 +100,8 @@ int transition[5][18]= {
 	
 
 }
+//if current state= cwl  intelligence file changes state, input is output from command
+//  and wall then output =1
 //needs to find entry
 int main() {
 	
