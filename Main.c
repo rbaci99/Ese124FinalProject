@@ -10,6 +10,10 @@
 //array to hold actions global variable;
 char act[MAX_SIZE][10];//To store List of actions from Intelligence file
 int itchL=0,itchR=0,itchF=0,itchB=0;//flags for itches
+
+
+int currX,currY;//current position of Michael the VA
+
 //reset itches every move
 /*old states
 #define idle 0 //state to say action not carried out
@@ -199,6 +203,12 @@ int next_state(int current_state,char **maze,int curr_action,FILE *o_fp){
 
 	}//Move_F
 
+	else if(current_state==Push){
+		push(currX,currY);
+		next_state=IDLE;
+	}
+
+
 	else{
 		next_state=IDLE;
 	}
@@ -212,6 +222,31 @@ int next_state(int current_state,char **maze,int curr_action,FILE *o_fp){
 
 
 
+
+	//Have check for CW if check failed 3x then back
+	//void nextState(current_stat,char map,curr position) ot just curr position
+	//								^
+	//								input
+	//flags are global variables
+	// if(current_state ==cwl){
+	//	if(map(x+1)(y)==*)
+	//	flag=0      <--can use return of functions
+	//next state = cwF;
+	//	else if ' '
+	//	flag =1
+	//if all flags dont =1 then go back
+	//void output(curr,flags){
+	//if all flags are 0 then go back
+	//while(1)
+	//FSM{
+	//read one line of command
+	//convert text to current stat
+	//current_state = Next_State(current_st,pos)
+	//for move functions
+	//if valid update else check next direction
+
+=
+//update current state from file when IDLE is next state
 
 	//Have check for CW if check failed 3x then back
 	//void nextState(current_stat,char map,curr position) ot just curr position
