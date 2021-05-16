@@ -12,6 +12,7 @@ int main() {
 	char temp;
 	char maze[SIZE][SIZE];
 	FILE *file;
+	int ch=getc(file);
 
 	if ((file = fopen("maze.txt","r")) == NULL){
        printf("Error! opening file");
@@ -23,22 +24,22 @@ int main() {
 	{
 
 
-
+	
 	for (r=0;r<SIZE;r++){ //increments through 2d array 
 		for (c=0;c<=SIZE;c++)
 		{
 			//	if ((temp=fgetc(file))!=EOF)
-				if (fscanf(file,"%c",&maze[r][c])!=EOF);	
-			//	fputc(temp,file);
+				if (fscanf(file,"%c",&maze[r][c])!=EOF);	//checks for end of the file
+			{
 			//	fscanf(file,"%c",&maze[r][c]);	
 				printf("%c",maze[r][c]);
-            
             }
+        
 		}
 }
 	fclose(file);
 }
-
+}
 
 
 /*void mazeGen(char mazew[SIZE][SIZE])//preset maze is generated
