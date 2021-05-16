@@ -1,4 +1,5 @@
 //Main for Final Project Ese 124 Robert Bacigalupo,Melvin Mathew,Adam Zeng
+//Contains FSM,Scanner,Main,Rp action, and method action <-- helper method to convert state to action
 #include <iostream>
 #include<stdio.h>
 #include<stdlib.h>
@@ -8,6 +9,8 @@
 #define MAX_SIZE 100
 //array to hold actions global variable;
 char act[MAX_SIZE][10];//To store List of actions from Intelligence file
+int itchL=0,itchR=0,itchF=0,itchB=0;//flags for itches
+//reset itches every move
 /*old states
 #define idle 0 //state to say action not carried out
 #define itchL 1//cwl executed and itch present
@@ -35,6 +38,7 @@ char act[MAX_SIZE][10];//To store List of actions from Intelligence file
 #define Back 15
 #define Rp 16
 #define END 17
+#define IDLE 18 //Used for next_states that dont require actions
 //first read in action
 //carry out action
 //print action to file if carried out
@@ -42,10 +46,76 @@ char act[MAX_SIZE][10];//To store List of actions from Intelligence file
 //get Next state/action
 //carry out action
 //repeat
+//toString Method for States
+char* toString(int state){
+	char *str;
+	switch(state){
+		case(Mark):
+			strcpy(str,"Mark");
+			break;
+		case(cwL):
+			strcpy(str,"cwL");
+			break;
+		case(cwF):
+			strcpy(str,"cwF");
+			break;
+		case(cwR):
+			strcpy(str,"cwR");
+			break;
+		case(cwB):
+			strcpy(str,"cwB");
+			break;
+		case(Move_F):
+			strcpy(str,"Move_F");
+			break;
+		case(Move_B):
+			strcpy(str,"Move_B");
+			break;
+		case(Move_L):
+			strcpy(str,"Move_L");
+			break;
+		case(Move_R):
+			strcpy(str,"Move_R");
+			break;
+		case(Push):
+			strcpy(str,"Push");
+			break;
+		case(Pop):
+			strcpy(str,"Pop");
+			break;
+		case(Peek):
+			strcpy(str,"Peek");
+			break;
+		case(Clear):
+			strcpy(str,"Clear");
+			break;
+		case(BJPI):
+			strcpy(str,"BJPI");
+			break;
+		case(CJPI):
+			strcpy(str,"CJPI");
+			break;
+		case(Back):
+			strcpy(str,"Back_track");
+			break;
+		case(Rp):
+			strcpy(str,"Rp");
+			break;
+		case(IDLE):
+			strcpy(str,"Idle");
+			break;
+		case(END):
+			strcpy(str,"End");
+			break;
+		default: break;
+
+		}//switch
+}//toString
 int next_state(int current_state,char **maze,int curr_action,FILE *o_fp){
+
+	fprintf(o_fp,"%s\n",state);//need to create method to change state to string
 	int next_state=current_state;//holds next state
 	int temp;//temp for check
-	int itchL=0,itchR=0,itchF=0,itchB=0;//flags for itches
 	//0 no itch 1 itch
 	if(current_state==cwL){
 		if(CWL(*maze)==0){
@@ -80,10 +150,59 @@ int next_state(int current_state,char **maze,int curr_action,FILE *o_fp){
 			itchB=1;
 		}//check
 	}//cwB
+	else if(current_state==Move_F){
+		if(MOVE_F(*maze)==0){
+			next_state=IDLE;
+		}else{  //new positions reset itches
+			next_state=IDLE;
+			itchL=0;
+			itchR=0;
+			itchF=0;
+			itchB=0;
+		}
+		
+	}//Move_F
+	else if(current_state==Move_B){
+		if(MOVE_B(*maze)==0){
+			next_state=IDLE;
+		}else{  //new positions reset itches
+			next_state=IDLE;
+			itchL=0;
+			itchR=0;
+			itchF=0;
+			itchB=0;
+		}
+
+	}//Move_B
+	else if(current_state==Move_L){
+		if(MOVE_L(*maze)==0){
+			next_state=IDLE;
+		}else{  //new positions reset itches
+			next_state=IDLE;
+			itchL=0;
+			itchR=0;
+			itchF=0;
+			itchB=0;
+		}
+
+	}//Move_L
+	  else if(current_state==Move_F){
+		if(MOVE_F(*maze)==0){
+			next_state=IDLE;
+		}else{  //new positions reset itches
+			next_state=IDLE;
+			itchL=0;
+			itchR=0;
+			itchF=0;
+			itchB=0;
+		}
+
+	}//Move_F
+
 	else{
-		next_state=current_state;
+		next_state=IDLE;
 	}
-	if(itchL==0 && itchR==0 && itchF==0 && itchB==0){
+	if((current_state==cwL ||current_state==cwR ||current_state==cwF ||current_state==cwB )&&itchL==0 && itchR==0 && itchF==0 && itchB==0){
 		next_state=Back;
 	}else if(itchL+itchR+itchF+itchB>2){
 		next_state=Mark;
