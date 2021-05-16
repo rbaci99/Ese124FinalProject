@@ -245,7 +245,7 @@ int next_state(int current_state,char **maze,int curr_action,FILE *o_fp){
 	//for move functions
 	//if valid update else check next direction
 
-=
+
 //update current state from file when IDLE is next state
 
 	//Have check for CW if check failed 3x then back
@@ -275,5 +275,36 @@ int next_state(int current_state,char **maze,int curr_action,FILE *o_fp){
 //needs to find entry
 int main() {
 int max_energy;//Max energy of Michael entered from user
+	int r,c;
+	char temp;
+	char maze[SIZE][SIZE];
+	FILE *file;
+	int ch=getc(file);
+
+if ((file = fopen("maze.txt","r")) == NULL){
+       printf("Error! opening file");
+
+       // Program exits if returns NULL.
+       exit(1);
+   }
+	else
+	{
+
+
+
+	for (r=0;r<SIZE;r++){ //increments through 2d array
+		for (c=0;c<=SIZE;c++)
+		{
+			//	if ((temp=fgetc(file))!=EOF)
+				if (fscanf(file,"%c",&maze[r][c])!=EOF);	//checks for end of the file
+			{
+			//	fscanf(file,"%c",&maze[r][c]);
+				printf("%c",maze[r][c]);
+            }
+
+		}
+}
+	fclose(file);
+}
 	return 0;
 }
