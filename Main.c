@@ -2,7 +2,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-#define SIZE 50 
+#define SIZE 12 
 //Main for Final Project Ese 124 Robert Bacigalupo,Melvin Mathew,Adam Zeng
 
 
@@ -25,13 +25,13 @@ int main() {
 
 
 	for (r=0;r<SIZE;r++){ //increments through 2d array 
-		for (c=0;c<SIZE;c++)
+		for (c=0;c<=SIZE;c++)
 		{
-				if ((temp=fgetc(file))!=EOF)
-				{
-				fscanf(file,"%c",&maze[r][c]);	
+			//	if ((temp=fgetc(file))!=EOF)
+				if (fscanf(file,"%c",&maze[r][c])!=EOF);	
+			//	fputc(temp,file);
+			//	fscanf(file,"%c",&maze[r][c]);	
 				printf("%c",maze[r][c]);
-            	}
             
             }
 		}
