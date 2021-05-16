@@ -23,7 +23,7 @@ int main() {
 	{
 
 
-	fputc(temp,file);
+
 	for (r=0;r<SIZE;r++){ //increments through 2d array 
 		for (c=0;c<SIZE;c++)
 		{
