@@ -17,6 +17,11 @@ void getPos(int *xValue, int *yValue){
 	
 }//getPos
 
+void setPos(int *xValue, int *yValue){//use for initial position
+	*xValue=currX;
+	*yValue=currY;
+
+}//getPos
 
 void MARK(int row,int col,char *maze[]){
 	maze[row][col]='p';
@@ -75,7 +80,7 @@ int MOVE_R(char *maze[]){
 //if check for valid space
 }//MOVE_R
 //checks for itch to left and returns number of free spaces although Michael does not see it,used for jumps
-int CWL(char *maze[]){
+int CWL(char **maze){
 	int x,y,i=0,itch=0;
 
 	x=currX;
@@ -89,7 +94,7 @@ int CWL(char *maze[]){
 
 }//CWL
 //checks for itch to Right and returns number of free spaces
-int CWR(char *maze[]){
+int CWR(char **maze){
 	int x,y,i=0,itch=0;
 	x=currX;
 	y=currY;
@@ -103,7 +108,7 @@ int CWR(char *maze[]){
 	
 }//CWR
 //checks for itch to Forward direaction and returns number of free spaces
-int CWF(char *maze[]){
+int CWF(char **maze){
 	int x,y,i=0,itch=0;
 	//peek(&x,&y);
 	x=currX;
@@ -117,7 +122,7 @@ int CWF(char *maze[]){
 	
 }//CWF
 //checks for itch to Backwards direaction and returns number of free spaces
-int CWB(char *maze[]){
+int CWB(char **maze){
 	int x,y,i=0,itch=0;
 //	peek(&x,&y);
 	x=currX;

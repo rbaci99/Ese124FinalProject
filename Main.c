@@ -6,8 +6,8 @@
 #include"functions.h"
 #include"stack.h"
 #define MAX_SIZE 100
-
-
+//array to hold actions global variable;
+char act[MAX_SIZE][10];//To store List of actions from Intelligence file
 /*old states
 #define idle 0 //state to say action not carried out
 #define itchL 1//cwl executed and itch present
@@ -17,25 +17,6 @@
 #define Moved 5//Move action executed suscessfully
 */
 //states
-#define idle 0
-#define cwL 1
-#define cwF 2
-#define cwR 3
-#define cwB 4
-#define Move_F 5
-#define Move_B 6
-#define Move_L 7
-#define Move_R 8
-#define Push 9
-#define Pop 10
-#define Peek 11
-#define Clear 12
-#define BJPI 13
-#define CJPI 14
-#define Back 15
-#define Rp 16
-#define END 17
-//inputs
 #define Mark 0
 #define cwL 1
 #define cwF 2
@@ -53,12 +34,66 @@
 #define CJPI 14
 #define Back 15
 #define Rp 16
-#define EOS 17
+#define END 17
+//first read in action
+//carry out action
+//print action to file if carried out
+//put action as current state to fsm
+//get Next state/action
+//carry out action
+//repeat
+int next_state(int current_state,char **maze,int curr_action,FILE *o_fp){
+	int next_state=current_state;//holds next state
+	int temp;//temp for check
+	int itchL=0,itchR=0,itchF=0,itchB=0;//flags for itches
+	//0 no itch 1 itch
+	if(current_state==cwL){
+		if(CWL(*maze)==0){
+			itchL=0;
+			next_state=cwF;
+		}else{
+			itchL=1;
+		}//check
+	
+	}//cwl
+	else if(current_state==cwF){
+			if(CWF(*maze)==0){
+			itchF=0;
+			next_state=cwR;
+		}else{
+			itchF=1;
+		}//check
+	}//cwF
+	else if(current_state==cwR){
+			if(CWR(*maze)==0){
+			itchR=0;
+			next_state=cwB;
+		}else{
+			itchR=1;
+		}//check
+	}//cwR
+	else if(current_state==cwB){
+			if(CWB(*maze)==0){
+			itchB=0;
+			next_state=cwL;
+		}else{
+			itchB=1;
+		}//check
+	}//cwB
+	else{
+		next_state=current_state;
+	}
+	if(itchL==0 && itchR==0 && itchF==0 && itchB==0){
+		next_state=Back;
+	}else if(itchL+itchR+itchF+itchB>2){
+		next_state=Mark;
+	}
+	return next_state;
+}
 
-char act[MAX_SIZE][10];//To store List of actions from Intelligence file
-int max_energy=100;//Max energy of Michael
 
-int transition[5][18]= {
+
+
 	//Have check for CW if check failed 3x then back
 	//void nextState(current_stat,char map,curr position) ot just curr position
 	//								^
@@ -80,30 +115,11 @@ int transition[5][18]= {
 	//current_state = Next_State(current_st,pos)
 	//for move functions
 	//if valid update else check next direction
-	//Mark cwL cwF cwR cwB Move_F Move_B Move_L Move_R Push Pop Peek Clear BJPI CJPI Back Rp EOS
-	idle, cwL, cwF, cwR, cwB, Move_F, Move_B, Move_L, Move_R, Push, Pop, Peek, Clear, BJPI, CJPI, Back, Rp, End,    //idle
-	idle, cwL, cwF, cwR, cwB, Move_F, Move_B, Move_L, Move_R, Push, Pop, Peek, Clear, BJPI, CJPI, Back, Rp, End,    //cwL failed
-	idle, cwL, cwF, cwR, cwB, Move_F, Move_B, Move_L, Move_R, Push, Pop, Peek, Clear, BJPI, CJPI, Back, Rp, End,    //cwR failed
-	idle, cwL, cwF, cwR, cwB, Move_F, Move_B, Move_L, Move_R, Push, Pop, Peek, Clear, BJPI, CJPI, Back, Rp, End,    //cwB failed
-	idle, cwL, cwF, cwR, cwB, Move_F, Move_B, Move_L, Move_R, Push, Pop, Peek, Clear, BJPI, CJPI, Back, Rp, End,    //Move_F
-	idle, cwL, cwF, cwR, cwB, Move_F, Move_B, Move_L, Move_R, Push, Pop, Peek, Clear, BJPI, CJPI, Back, Rp, End,    //Move_B
-	idle, cwL, cwF, cwR, cwB, Move_F, Move_B, Move_L, Move_R, Push, Pop, Peek, Clear, BJPI, CJPI, Back, Rp, End,    //Move_L
-	idle, cwL, cwF, cwR, cwB, Move_F, Move_B, Move_L, Move_R, Push, Pop, Peek, Clear, BJPI, CJPI, Back, Rp, End,    //Move_R
-	idle, cwL, cwF, cwR, cwB, Move_F, Move_B, Move_L, Move_R, Push, Pop, Peek, Clear, BJPI, CJPI, Back, Rp, End,    //Push
-	idle, cwL, cwF, cwR, cwB, Move_F, Move_B, Move_L, Move_R, Push, Pop, Peek, Clear, BJPI, CJPI, Back, Rp, End,    //Pop
-	idle, cwL, cwF, cwR, cwB, Move_F, Move_B, Move_L, Move_R, Push, Pop, Peek, Clear, BJPI, CJPI, Back, Rp, End,    //Peek
-	idle, cwL, cwF, cwR, cwB, Move_F, Move_B, Move_L, Move_R, Push, Pop, Peek, Clear, BJPI, CJPI, Back, Rp, End,    //Clear
-	idle, cwL, cwF, cwR, cwB, Move_F, Move_B, Move_L, Move_R, Push, Pop, Peek, Clear, BJPI, CJPI, Back, Rp, End,    //BJPI
-	idle, cwL, cwF, cwR, cwB, Move_F, Move_B, Move_L, Move_R, Push, Pop, Peek, Clear, BJPI, CJPI, Back, Rp, End,    //CJPI
-	idle, cwL, cwF, cwR, cwB, Move_F, Move_B, Move_L, Move_R, Push, Pop, Peek, Clear, BJPI, CJPI, Back, Rp, End,    //Back
-	idle, cwL, cwF, cwR, cwB, Move_F, Move_B, Move_L, Move_R, Push, Pop, Peek, Clear, BJPI, CJPI, Back, Rp, End    //Rp
-	
 
-}
 //if current state= cwl  intelligence file changes state, input is output from command
 //  and wall then output =1
 //needs to find entry
 int main() {
-	
+int max_energy;//Max energy of Michael entered from user
 	return 0;
 }
