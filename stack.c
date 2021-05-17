@@ -3,7 +3,6 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-
 #define MAX_SIZE 100
 
 //variables for stack
@@ -12,6 +11,7 @@ int stackY[MAX_SIZE];//stack for y values
 int top=0;//top of the stack
 
 //determines if stack is empty
+//1 = empty else 0
 int empty () {
 
 	return (top == 0)? 1: 0;
@@ -19,6 +19,7 @@ int empty () {
 } // empty
 
 //determines is stack is full
+//returns 1 if full else =0;
 int full () {
 
 	return (top == MAX_SIZE)? 1: 0;

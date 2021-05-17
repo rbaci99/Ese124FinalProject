@@ -1,13 +1,19 @@
 READ ME
-Michal the Greedy VA finds Gold through executing commands in intelliegnce file
-Intelligence file commands act as inputs to FSM
-Each input brings FSM to state with corresponding input name
+The maze for Michael the VA is populated from the maze.txt file and displayed on the program showing * for walls and @ for gold bags in the main.c. The user is also prompted to input the desired maximum energy for Michael. This means 
+that every action michael carries out utilizes energy. This energy consumption depends on the action that he is carrying out. He must collect as many bags of gold as possible
+before running out of energy
+Prewritten commands in the intelliegnce.txt file are what Michael uses in his actions
+All possible commands for Michael exist in the functions.c program
+These files are then imported into the program 
+Intelligence file commands act as inputs to the FSM present in the main()
+Each input command imported from the intelligence.txt file brings FSM to state with corresponding input name
 FSM then carries out action of State
-wether or not the action is carreid out state is change //<--- idk
-EOS ends the program
+EOS ends the program FSM
 Each action takes required amount of energy
+Every time Michael encounters gold, the counter for gold increments
 If all energy used the program again ends
-IDK what to do about output table or if we need one
+The program will output a total list of actions that Michael carried out as well as the number of gold bags that he picked up as well
+
 //way to check all of maze:
 keep checking for left
 mark everytime more than one itch
