@@ -8,11 +8,14 @@ These files are then imported into the program
 Intelligence file commands act as inputs to the FSM present in the main()
 Each input command imported from the intelligence.txt file brings FSM to state with corresponding input name
 FSM then carries out action of State
-EOS ends the program FSM
+Stack.c manages the various stack commands present in the functions.c
+EOS ends the FSM program
 Each action takes required amount of energy
 Every time Michael encounters gold, the counter for gold increments
 If all energy used the program again ends
 The program will output a total list of actions that Michael carried out as well as the number of gold bags that he picked up as well
+
+
 
 //way to check all of maze:
 keep checking for left
