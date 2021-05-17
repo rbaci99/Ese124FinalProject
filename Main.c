@@ -10,7 +10,7 @@
 //Global variables
 char act[MAX_SIZE][10];//To store List of actions from Intelligence file
 int itchL=0,itchR=0,itchF=0,itchB=0;//flags for itches //0 no itch 1 itch
-int max_energy;//Max energy of Michael entered from user
+int Max_energy;//Max energy of Michael entered from user
 int x,y; //temp variables to store, mostly to discard popped values in pop state
 int currX,currY;//current position of Michael the VA
 int cnt=0;//counter for rp
@@ -123,6 +123,7 @@ int next_state(int current_state,char **maze,int curr_action,FILE *o_fp,int n,in
 	//0 no itch 1 itch
 	if(current_state==Mark){
 		MARK(currX,currY,*maze);
+		Max_energy-=3;
 		next_state=IDLE;
 	}else if(current_state==cwL){
 	strcpy(state,toString(current_state));
@@ -233,15 +234,19 @@ int next_state(int current_state,char **maze,int curr_action,FILE *o_fp,int n,in
 		fprintf(o_fp,"%s\n",state);
 		push(currX,currY);
 		next_state=IDLE;
+		Max_energy-=4;
 	}else{
 		next_state=Clear;
 	}
 	}//Push
 	else if(current_state==Pop){
+		if(empty!=1){
 		strcpy(state,toString(current_state));
 		fprintf(o_fp,"%s ",state);
 		pop(&x,&y);
 		fprintf("Forgot position (%d,%d)\n",x,y);
+		Max_energy-=4;
+	}//if stack is not empty
 		next_state=IDLE;
 	}//Pop
 	else if(current_state=Peek){
@@ -251,6 +256,7 @@ int next_state(int current_state,char **maze,int curr_action,FILE *o_fp,int n,in
 		fprintf(o_fp,"%s ",state);
 		peek(&x,&y);
 		fprintf(o_fp,"(%d,%d)\n",x,y);
+		Max_energy-=2;
 	}
 		next_state=IDLE;
 	}//Peek
@@ -259,6 +265,7 @@ int next_state(int current_state,char **maze,int curr_action,FILE *o_fp,int n,in
 		fprintf(o_fp,"%s\n",stat
 		clear();
 		next_state=IDLE;
+		Max_energy-=2;
 	}//Clear
 	else if (current_state==Back){
 		if(empty()!=0){
@@ -267,6 +274,18 @@ int next_state(int current_state,char **maze,int curr_action,FILE *o_fp,int n,in
 		}
 		next_state=IDLE;
 	}//BackTrack
+	else if(current_state==BJPI){
+		if(BJPI(*maze,act[curr_action-1])==1){
+			Max_energy-=5;
+		}
+		next_state=IDLE;
+	}//BJPI
+	else if(current_state==CJPI){
+		if(CJPI(*maze,act[curr_action-1])==1){
+			Max_energy-=3;
+		}
+		next_state=IDLE;
+	}//CJPI
 	else if(current_state==Rp){
 		if(curr_action-n>=0 && cnt<t){
 		cnt++;
@@ -349,8 +368,9 @@ int next_state(int current_state,char **maze,int curr_action,FILE *o_fp,int n,in
 //  and wall then output =1
 //needs to find entry
 int main() {
-
+	int gold=0;//count of gold
 	int r,c;
+	int current_state,next_state;
 	char temp;
 	char maze[SIZE][SIZE];
 	FILE *file,*o_fp;
@@ -386,7 +406,7 @@ printf("Enter Max Energy");
 scanf("%d",&max_energy);
 printf("MaxEnergy:%d",max_energy);
 while(max_energy>0&&current_state!=END){
-	
+
 }
 	return 0;
 }
