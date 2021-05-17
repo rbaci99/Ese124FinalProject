@@ -118,7 +118,7 @@ char* toString(int state){
 }//toString
 int next_state(int current_state,char **maze,int curr_action,FILE *o_fp,int n,int t){
 	char state[]=;
-	int next_state=current_state;//holds next state
+	int next_state=IDLE;//holds next state
 	int temp;//temp for check
 	//0 no itch 1 itch
 	if(current_state==Mark){
