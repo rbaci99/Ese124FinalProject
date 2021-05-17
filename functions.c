@@ -12,6 +12,15 @@ int currX;//current x position
 int currY;//current y position
 //??maybe put this in main or make another stack for it or get rid of completely;
 //char[MAX_SIZE][];//use this to store commands made for back track method
+
+void getPos(int *x,int *y){
+	*x=currX;
+	*y=currY;
+}
+void setPos(int x,int y){
+	currX=x;;
+	currY=y;;
+}
 void MARK(int row,int col,char *maze[]){
 	maze[row][col]='p';
 	
@@ -100,7 +109,7 @@ int CWB(char *maze[]){
 }//CWB
 //Jumps to furthest itch in specified direction
 //returns 1 if jump executed else returns 0
-int BJPI(char* maze[],char prev[3]){
+int BJPi(char* maze[],char prev[3]){
 //prev is previous CW command to see what direction to jump
 int x,y;
 peek(&x,&y);
@@ -143,7 +152,7 @@ return 1;//if func gets to here it means Jump was executed
 
 //Jumps to over one space in itched direction
 //returns 1 if jump executed else returns 0
-int CJPI(char* maze[],char prev[3]){
+int CJPi(char* maze[],char prev[3]){
 //prev is previous CW command to see what direction to jump
 int x,y;
 peek(&x,&y);
