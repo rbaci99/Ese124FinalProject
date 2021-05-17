@@ -29,7 +29,11 @@ IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=1
 CompilerSettings=0000000000000000001000000
+
+UnitCount=5
+=======
 UnitCount=3
+
 
 [VersionInfo]
 Major=1
@@ -79,4 +83,25 @@ Link=1
 Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
+
+
+[Unit4]
+FileName=README.txt
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit5]
+FileName=intelligenceScanner.c
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
 
