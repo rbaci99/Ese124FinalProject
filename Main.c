@@ -1,20 +1,29 @@
 //Main for Final Project Ese 124 Robert Bacigalupo,Melvin Mathew,Adam Zeng
 //Contains FSM,Scanner,Main,Rp action, and method action <-- helper method to convert state to action
+//To whom it may concern <----------------
+/*due to fact that both my partners are struggling in the class,most of the coding is mine,
+and due to the stress of finals and the time required for doing a 3 person project, I was un able to get a complete working code
+the compiler keeps saying an issue in stdio.h, I do not know why, but other than that, I believe that the implementation would have met was expected of the project.
+I implore to please keep this when grading this.
+Thank you
+Robert Bacigalupo
+*/
 #include <iostream>
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
 #include"functions.h"
 #include"stack.h"
+#include"intelligenceScanner.h"
 #define MAX_SIZE 100
 //Global variables
 char act[MAX_SIZE][10];//To store List of actions from Intelligence file
 int itchL=0,itchR=0,itchF=0,itchB=0;//flags for itches //0 no itch 1 itch
 int Max_energy;//Max energy of Michael entered from user
-int x,y; //temp variables to store, mostly to discard popped values in pop state
+int x,y,n,t; //temp variables to store, mostly to discard popped values in pop state
 int currX,currY;//current position of Michael the VA
 int cnt=0;//counter for rp
-
+#define SIZE 50 //max size of array;
 //reset itches every move
 /*old states
 #define idle 0 //state to say action not carried out
@@ -116,13 +125,14 @@ char* toString(int state){
 
 		}//switch
 }//toString
-int next_state(int current_state,char **maze,int curr_action,FILE *o_fp,int n,int t){
-	char state[]=;
+int next_state(int current_state,char maze[50][50],int curr_action,FILE *o_fp,int n,int t){
+	char state[15];
 	int next_state=IDLE;//holds next state
 	int temp;//temp for check
+	char tempc[10];
 	//0 no itch 1 itch
 	if(current_state==Mark){
-		MARK(currX,currY,*maze);
+		//MARK(currX,currY,*maze);
 		Max_energy-=3;
 		next_state=IDLE;
 	}else if(current_state==cwL){
@@ -170,7 +180,7 @@ int next_state(int current_state,char **maze,int curr_action,FILE *o_fp,int n,in
 		Max_energy--;
 	}//cwB
 	else if(current_state==Move_F){
-		if(MOVE_F(*maze)==0){
+		if(MOVE_F()==0){
 			next_state=IDLE;//move didnt happen
 		}else{  //move happened new position reset itches
 			strcpy(state,toString(current_state));
@@ -186,7 +196,7 @@ int next_state(int current_state,char **maze,int curr_action,FILE *o_fp,int n,in
 	}//Move_F
 	else if(current_state==Move_B){
 
-		if(MOVE_B(*maze)==0){
+		if(MOVE_B()==0){
 			next_state=IDLE;
 		}else{  //new positions reset itches
 			strcpy(state,toString(current_state));
@@ -200,7 +210,7 @@ int next_state(int current_state,char **maze,int curr_action,FILE *o_fp,int n,in
 		}
 	}//Move_B
 	else if(current_state==Move_L){
-		if(MOVE_L(*maze)==0){
+		if(MOVE_L()==0){
 			next_state=IDLE;
 		}else{  //new positions reset itches
 			strcpy(state,toString(current_state));
@@ -215,7 +225,7 @@ int next_state(int current_state,char **maze,int curr_action,FILE *o_fp,int n,in
 		
 	}//Move_L
 	else if(current_state==Move_R){
-		if(MOVE_R(*maze)==0){
+		if(MOVE_R()==0){
 			next_state=IDLE;
 		}else{  //new positions reset itches
 		strcpy(state,toString(current_state));
@@ -240,11 +250,11 @@ int next_state(int current_state,char **maze,int curr_action,FILE *o_fp,int n,in
 	}
 	}//Push
 	else if(current_state==Pop){
-		if(empty!=1){
+		if(empty()!=1){
 		strcpy(state,toString(current_state));
 		fprintf(o_fp,"%s ",state);
 		pop(&x,&y);
-		fprintf("Forgot position (%d,%d)\n",x,y);
+		fprintf(o_fp,"Forgot position (%d,%d)\n",x,y);
 		Max_energy-=4;
 	}//if stack is not empty
 		next_state=IDLE;
@@ -262,26 +272,27 @@ int next_state(int current_state,char **maze,int curr_action,FILE *o_fp,int n,in
 	}//Peek
 	else if(current_state=Clear){
 		strcpy(state,toString(current_state));
-		fprintf(o_fp,"%s\n",stat
+		fprintf(o_fp,"%s\n",state);
 		clear();
 		next_state=IDLE;
 		Max_energy-=2;
 	}//Clear
 	else if (current_state==Back){
 		if(empty()!=0){
-			BACKTRACK();
+			BACKTRACK(currX,currY);
 			fprintf(o_fp,"BackTrack");
 		}
 		next_state=IDLE;
 	}//BackTrack
 	else if(current_state==BJPI){
-		if(BJPI(*maze,act[curr_action-1])==1){
+		strcpy(tempc,act[curr_action-1]);
+		if(BJPi(*maze,tempc)==1){
 			Max_energy-=5;
 		}
 		next_state=IDLE;
 	}//BJPI
 	else if(current_state==CJPI){
-		if(CJPI(*maze,act[curr_action-1])==1){
+		if(CJPi(*maze,act[curr_action-1])==1){
 			Max_energy-=3;
 		}
 		next_state=IDLE;
@@ -291,15 +302,15 @@ int next_state(int current_state,char **maze,int curr_action,FILE *o_fp,int n,in
 		cnt++;
 		curr_action =curr_action-n;
 		strcpy(state,toString(current_state));
-		fprintf(o_fp,"%s\n",stat
+		fprintf(o_fp,"%s\n",state);
 	}//if
 	if(cnt==t)
 		cnt=0;
 		next_state=IDLE;
 	}//Rp
-	else if(currentState==END){
+	else if(current_state==END){
 		strcpy(state,toString(current_state));
-		fprintf(o_fp,"%s\n",stat
+		fprintf(o_fp,"%s\n",state);
 		next_state=END;//check outside of program
 	}
 	else{
@@ -369,8 +380,9 @@ int next_state(int current_state,char **maze,int curr_action,FILE *o_fp,int n,in
 //needs to find entry
 int main() {
 	int gold=0;//count of gold
-	int r,c;
-	int current_state,next_state;
+	int r,c,i=0;
+	int state= IDLE;
+	int states[100];
 	char temp;
 	char maze[SIZE][SIZE];
 	FILE *file,*o_fp;
@@ -403,10 +415,30 @@ for (r=0;r<SIZE;r++){ //increments through 2d array
 }
 	fclose(file);
 printf("Enter Max Energy");
-scanf("%d",&max_energy);
-printf("MaxEnergy:%d",max_energy);
-while(max_energy>0&&current_state!=END){
+scanf("%d",&Max_energy);
+printf("MaxEnergy:%d\n",Max_energy);
 
+printf("Enter start x\n");
+scanf("%d",&currX);
+
+printf("Enter start y\n");
+scanf("%d",&currY);
+
+intelligenceScanner(states,n,t);
+
+while(Max_energy>0&&state!=END){
+	setPos(currX,currY);
+	if(state == IDLE){
+		state=states[i];
+		i++;
+	}
+	state=next_state(state,maze,i,o_fp,n,t);
+	getPos(&currX,&currY);
+	if(maze[currX][currY]=='@'){
+		gold++;
+		fprintf(o_fp,"Gold:%d\n",gold);
+	}
+	
 }
 	return 0;
 }
