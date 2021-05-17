@@ -1,12 +1,13 @@
 //Main for Final Project Ese 124 Robert Bacigalupo,Melvin Mathew,Adam Zeng
 //Contains FSM,Scanner,Main,Rp action, and method action <-- helper method to convert state to action
-#include <iostream>
+//#include <iostream>
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
 #include"functions.h"
 #include"stack.h"
 #define MAX_SIZE 100
+#define SIZE 50
 //array to hold actions global variable;
 char act[MAX_SIZE][10];//To store List of actions from Intelligence file
 int itchL=0,itchR=0,itchF=0,itchB=0;//flags for itches
@@ -306,5 +307,6 @@ if ((file = fopen("maze.txt","r")) == NULL){
 }
 	fclose(file);
 }
+
 	return 0;
 }
